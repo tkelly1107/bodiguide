@@ -1,19 +1,51 @@
-// PatientProfilePage.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import styles from './PatientProfilePage.module.css'; // Ensure to create a corresponding CSS module file
+import styles from './PatientProfilePage.module.css';
+
+
+// Define an interface for the expected shape of patientDetails
+interface PatientDetails {
+  firstname: string;
+  lastname: string;
+  // include other properties as needed
+}
+
+// In the component, use the interface to type the state
+
 
 const PatientProfilePage: React.FC = () => {
-  // Placeholder for patient data - replace with real data from backend
-  const patientDetails = {
-    name: 'Alex Bing',
-    mobileNumber: '1234567890',
-    email: 'alexbing@example.com',
-    dob: '01/29/1998',
-    gender: 'Male',
-    address: 'Columbia, Missouri'
-  };
+  // State to hold patient details
+  const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
+  // Replace with the actual user ID you want to fetch
+  const userId = 1;
+
+  // Effect to fetch patient data on mount
+  useEffect(() => {
+    const fetchPatientDetails = async () => {
+      try {
+        const response = await axios.get(`https://vfqd51syg4.execute-api.us-east-1.amazonaws.com/prod/user/${userId}`);
+        setPatientDetails(response.data);
+      } catch (err) {
+        setError('Failed to load patient details');
+        console.error('Error fetching patient details:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPatientDetails();
+  }, [userId]); // useEffect will run when the userId changes
+
+  // Loading and error handling
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!patientDetails) return <div>No patient details available.</div>;
+
+  // Render patient details
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
@@ -31,12 +63,7 @@ const PatientProfilePage: React.FC = () => {
       <main className={styles.mainContent}>
         <div className={styles.profileCard}>
           <div className={styles.profileImage}></div> {/* Placeholder for the profile image */}
-          <h1>{patientDetails.name}</h1>
-          <p>Mobile Number: {patientDetails.mobileNumber}</p>
-          <p>Email: {patientDetails.email}</p>
-          <p>Date of Birth: {patientDetails.dob}</p>
-          <p>Gender: {patientDetails.gender}</p>
-          <p>Address: {patientDetails.address}</p>
+          <h1>{patientDetails.firstname} {patientDetails.lastname}</h1>
         </div>
       </main>
     </div>
