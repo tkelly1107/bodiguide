@@ -4,7 +4,8 @@ import SignUp from './SignUp';
 import DoctorHomePage from './DoctorHomePage';
 import PatientHomePage from './PatientHomePage';
 import DoctorViewPatientPage from './DoctorViewPatientPage';
-import PatientProfilePage from './PatientProfilePage'; // Import the PatientProfilePage component
+import PatientProfilePage from './PatientProfilePage';
+import { AuthProvider } from './AuthContext'; // Import the PatientProfilePage component
 
 function App() {
   return (
