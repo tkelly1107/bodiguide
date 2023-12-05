@@ -6,8 +6,13 @@ import styles from './PatientProfilePage.module.css';
 
 // Define an interface for the expected shape of patientDetails
 interface PatientDetails {
+  unique_code: number;
   firstname: string;
   lastname: string;
+  usertype: string;
+  gender: string;
+  dob: string;       // Date of birth
+  email: string;
   // include other properties as needed
 }
 
@@ -63,7 +68,10 @@ const PatientProfilePage: React.FC = () => {
       <main className={styles.mainContent}>
         <div className={styles.profileCard}>
           <div className={styles.profileImage}></div> {/* Placeholder for the profile image */}
-          <h1>{patientDetails.firstname} {patientDetails.lastname}</h1>
+          <h1 className={styles.name}>{patientDetails?.firstname} {patientDetails?.lastname}</h1>
+          <p>Email: {patientDetails?.email}</p>
+          <p>Gender: {patientDetails?.gender}</p>
+          <p>Date of Birth: {patientDetails?.dob}</p>
         </div>
       </main>
     </div>

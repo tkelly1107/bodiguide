@@ -1,6 +1,11 @@
 /* DoctorHomePage.module.css */
 .container {
     font-family: 'Arial', sans-serif;
+    padding: 5%;
+  }
+
+  .name{
+    text-transform: capitalize;
   }
   
   .header {
@@ -55,6 +60,10 @@
     height: 100px;
     width: 100px;
     margin: 0 auto;
+  }
+
+  section {
+    margin: 5%
   }
   
   /* Add responsive adjustments */

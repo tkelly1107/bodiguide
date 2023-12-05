@@ -1,29 +1,72 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './DoctorViewPatientPage.module.css';
+import styles from './DoctorViewPatientPage.module.css';
+
+// Define an interface for the expected shape of the API response
+interface Measurement {
+  bpm: number;
+  temperature: number;
+  angle: number;
+  battery: number;
+  circumference: number;
+  standuppercentage: number;
+  measuredtime: string;
+}
+
+interface PatientReport {
+  patient_unique_code: number;
+  patient_firstname: string;
+  patient_lastname: string;
+  measurements: Measurement[];
+  doctor_unique_code: number;
+}
+
 const DoctorViewPatientPage = () => {
-  const { patientId } = useParams();
-  
-  // Fetch patient details based on patientId
-  // For now, we'll use a placeholder
-  const patient = {
-    id: patientId,
-    name: 'David Ross',
-    age: 21,
-    email: 'ross29@gmail.com',
-    gender: 'Male'
-  };
+  const { patientId } = useParams<{ patientId: string }>();
+  const [patientReport, setPatientReport] = useState<PatientReport | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const apiUrl = `https://dcw3srhbqk.execute-api.us-east-1.amazonaws.com/user/2/reports?patientId=${patientId}`;
+
+  useEffect(() => {
+    axios.get(apiUrl)
+      .then(response => {
+        setPatientReport(response.data);
+      })
+      .catch(err => {
+        setError('Failed to load patient report');
+        console.error('Error fetching patient report:', err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [patientId]);
+
+  if (loading) return <div className={styles.loading}>Loading...</div>;
+  if (error) return <div className={styles.error}>Error: {error}</div>;
+  if (!patientReport) return <div className={styles.noData}>No patient report available.</div>;
 
   return (
-    <div>
-      <h1>Patient Profile</h1>
-      {/* Render the patient's profile UI similar to the wireframe */}
-      <div className="patient-details">
-        <p>Name: {patient.name}</p>
-        <p>Age: {patient.age}</p>
-        <p>Email: {patient.email}</p>
-        <p>Gender: {patient.gender}</p>
+    <div className={styles.container}>
+      <h1 className={styles.name}>{patientReport.patient_firstname} {patientReport.patient_lastname}</h1>
+      <h2 className={styles.title}>Patient Profile</h2>
+      <div className={styles.patientDetails}>
+        {/* Additional patient details can be added here */}
+        <h2 className={styles.measurementsTitle}>Measurements</h2>
+        {patientReport.measurements.map((measurement, index) => (
+          <div key={index} className={styles.measurement}>
+            <p><strong>Time:</strong> {measurement.measuredtime}</p>
+            <p><strong>BPM:</strong> {measurement.bpm}</p>
+            <p><strong>Temperature:</strong> {measurement.temperature}°C</p>
+            <p><strong>Angle:</strong> {measurement.angle}</p>
+            <p><strong>Battery:</strong> {measurement.battery}%</p>
+            <p><strong>Circumference:</strong> {measurement.circumference}</p>
+            <p><strong>Standup Percentage:</strong> {measurement.standuppercentage}%</p>
+          </div>
+        ))}
       </div>
-      {/* Additional components for Reports and Monitor Data */}
     </div>
   );
 };

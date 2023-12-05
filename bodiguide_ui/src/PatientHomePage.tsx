@@ -5,11 +5,13 @@ import styles from './PatientHomePage.module.css';
 
 // Define an interface for the expected shape of patientDetails
 interface PatientDetails {
+  unique_code: number;
   firstname: string;
   lastname: string;
-  email: string;
-  age: number;
+  usertype: string;
   gender: string;
+  dob: string;       // Date of birth
+  email: string;
 }
 
 const PatientHomePage: React.FC = () => {
@@ -68,10 +70,10 @@ const PatientHomePage: React.FC = () => {
 
         <aside className={styles.profile}>
           <div className={styles.profilePic}></div> {/* Placeholder for profile picture */}
-          <h3>{patientDetails.firstname} {patientDetails.lastname}</h3>
-          <p>Age: {patientDetails.age}</p>
-          <p>Email ID: {patientDetails.email}</p>
-          <p>Gender: {patientDetails.gender}</p>
+          <h3 className={styles.name}>{patientDetails?.firstname} {patientDetails?.lastname}</h3>
+          <p>Email: {patientDetails?.email}</p>
+          <p>Gender: {patientDetails?.gender}</p>
+          <p>Date of Birth: {patientDetails?.dob}</p>
           <Link to="/patient-profile" className={styles.viewProfileLink}>View Profile</Link>
         </aside>
       </main>

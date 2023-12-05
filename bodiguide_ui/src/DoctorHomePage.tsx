@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; 
 import styles from './DoctorHomePage.module.css'; 
 
 // Define an interface for the expected shape of doctorDetails
@@ -66,10 +67,14 @@ const DoctorHomePage: React.FC = () => {
           <h2>Patients List</h2>
           <table>
             <tbody>
-              {patients.map(patient => (
+              {doctorDetails.patients.map(patient => (
                 <tr key={patient.unique_code}>
-                  <td>{`${patient.firstname} ${patient.lastname}`}</td>
-                  <td>View Full Details</td>
+                  <td className={styles.name}>{`${patient.firstname} ${patient.lastname}`}</td>
+                  <button>
+                  <td>
+                    <Link to={`/doctor/view-patient/${patient.unique_code}`}>View Full Details</Link>
+                  </td>
+                  </button>
                 </tr>
               ))}
             </tbody>
@@ -84,8 +89,7 @@ const DoctorHomePage: React.FC = () => {
           </div>
           <div className={styles.doctorProfile}>
             <div className={styles.profilePic}></div> {/* Placeholder for profile picture */}
-            {doctorName}
-            <button>View Profile</button>
+            <div className={styles.name}>{doctorName}</div>
           </div>
         </aside>
       </main>

@@ -2,6 +2,21 @@
 .container {
     font-family: 'Arial', sans-serif;
   }
+
+
+  
+  .name{
+    text-transform: capitalize;
+  }
+
+  
+  body {
+    background-color: lightblue; /* Light blue background */
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
   
   .header {
     background-color: #f8f8f8; /* Light grey background */

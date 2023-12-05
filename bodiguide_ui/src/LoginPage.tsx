@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
+import './LoginPage.module.css';
 
 interface LoginProps {
   onLogin: (username: string, password: string) => void;
