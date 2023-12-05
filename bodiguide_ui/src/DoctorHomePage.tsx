@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
- 
-
+import { Link } from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,7 +8,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import styles from './DoctorHomePage.module.css'; 
+import Button from '@mui/material/Button';
 
+
+const capitalize = (str: string) => {
+  if (!str) return '';
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
 // Define an interface for the expected shape of doctorDetails
 interface DoctorDetails {
   unique_code: number;
@@ -52,6 +58,7 @@ const DoctorHomePage: React.FC = () => {
         setLoading(false);
       });
   }, [doctorUniqueCode]); // useEffect dependency array
+
 
   // Loading and error handling
   if (loading) return <div>Loading...</div>;
@@ -100,19 +107,30 @@ const DoctorHomePage: React.FC = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {patients.map((patient) => (
-                                        <TableRow
-                                            key={patient.unique_code}
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                  {patients.map((patient) => (
+                                    <TableRow
+                                      key={patient.unique_code}
+                                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                      <TableCell className={styles.name} component="th" scope="row">
+                                        {patient.firstname}
+                                      </TableCell>
+                                      <TableCell className={styles.name} align="left">{patient.lastname}</TableCell>
+                                      <TableCell align="center">
+                                        <Button
+                                          variant="contained"
+                                          color="primary"
+                                          component={Link}
+                                          to={`/doctor/view-patient/${patient.unique_code}`}
                                         >
-                                            <TableCell component="th" scope="row">
-                                                {patient.firstname}
-                                            </TableCell>
-                                            <TableCell align="left">{patient.lastname}</TableCell>
-                                            <TableCell align="center">View Full Details</TableCell>
-                                        </TableRow>
-                                    ))}
+                                          View Full Details
+                                        </Button>
+                                      </TableCell>
+
+                                    </TableRow>
+                                  ))}
                                 </TableBody>
+
                             </Table>
                         </TableContainer>
 
@@ -125,8 +143,7 @@ const DoctorHomePage: React.FC = () => {
                               <div className='text-center pt-4'>{patients.length}</div>
                         </div>
                         <div className="bg-white ml-48 h-32 w-64">
-                              <div className='pt-6 text-center'>{doctorName}</div>
-                              <div className='text-blue-500 text-center pt-4 cursor-pointer'>View Full Profile</div>
+                              <div className='pt-6 text-center' >{capitalize(doctorName)}</div>
                         </div>
 
                     </div>

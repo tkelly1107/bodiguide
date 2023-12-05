@@ -43,7 +43,7 @@ export default function PatientSideBar() {
                 Monitor Data  
               </div>
             </Link>
-            <Link to={""} className="text-black pt-6 flex" ><NoteAddOutlinedIcon/> <div className="pl-2"> View your Reports </div> </Link>
+            <Link to={`/patient-report/1}`} className="text-black pt-6 flex" ><NoteAddOutlinedIcon/> <div className="pl-2"> View your Reports </div> </Link>
             <Link to={"/"} className="text-black pt-6 flex" ><AccountCircleOutlinedIcon/><div className="pl-2">Profile</div></Link>
             <Link to={"/"} className="text-black pt-6 flex" ><InfoOutlinedIcon/><div className="pl-2">About</div></Link>
             <Link to={"/"} className="text-black pt-6 flex" ><LogoutOutlinedIcon/><div className="pl-2"> Logout</div></Link>

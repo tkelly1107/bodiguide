@@ -11,6 +11,10 @@
     /* Add other styles as needed, like font size, weight, etc. */
   }
   
+  .name{
+    text-transform: capitalize;
+  }
+  
 
   .mainContent {
     display: flex;
