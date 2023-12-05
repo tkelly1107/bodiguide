@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import styles from './PatientHomePage.module.css';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+
 
 // Define an interface for the expected shape of patientDetails
 interface PatientDetails {
@@ -47,35 +50,109 @@ const PatientHomePage: React.FC = () => {
   if (!patientDetails) return <div>No patient details available.</div>;
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        BodiGuide Inc
-        {/* Navigation links would go here */}
-      </header>
+    <>
+    <div className="h-screen  bg-stone-100">
+        {/* Header Section */}
+        <div className="h-16 bg-gray-200 text-center flex items-center justify-between">
+            <div className="pl-9 text-2xl font-semibold">
+                Bodiguide Inc.
+            </div>
+            <div className="flex items-end">
+                <div className="pr-9">
+                    Home
+                </div>
+                <div className="pr-9">
+                    Profile
+                </div>
+                <div className="pr-9">
+                    About
+                </div>
+                <div className="pr-9">
+                    Logout
+                </div>
+            </div>
+        </div>
 
-      <main className={styles.mainContent}>
-        <section className={styles.card}>
-          <img src="/images/reports.png" alt="Reports" className={styles.cardImage} />
-          <h3>Reports</h3>
-          {/* Link or button to view reports */}
-        </section>
+        <div className="flex flex-row justify-center">
+            <div className="flex flex-col w-1/2 items-center justify-center ">
+                <div className="w-1/2 pt-24">
+                    <Card sx={{ display: 'flex' }} className="">
+                        <CardMedia
+                        className='h-36'
+                            component="img"
+                            sx={{ width: 151 }}
+                            image="reports.png"
+                            alt="Live from space album cover"
+                        />
+                        <CardContent className=" ">
+                            <div className="text-xl font-semibold">
+                                View Reports
+                            </div>
+                        </CardContent>
+                        
+                    </Card>
+                </div>
+                <div className="w-1/2 pt-24">
+                    <Card sx={{ display: 'flex' }}>
+                        <CardMedia
+                        className='h-36'
+                            component="img"
+                            sx={{ width: 151 }}
+                            image="monitor1.jpeg"
+                            alt="Live from space album cover"
+                        />
+                        <CardContent>
+                            <div className="text-xl text-center font-semibold">
+                                Monitor Data 
+                            </div>
+                        </CardContent>
+                        
+                    </Card>
+                </div>
+            </div>
 
-        <section className={styles.card}>
-          <img src="/images/monitor.jpg" alt="Monitor Data" className={styles.cardImage} />
-          <h3>Monitor Data</h3>
-          {/* Link or button to view monitor data */}
-        </section>
+            <div className="w-1/2 h-full items-center mx-8">
+                <div className="w-2/3 pt-24">
+                    <Card className="flex flex-col items-center">
+                        <CardMedia
+                            className=" pt-12"
+                            component="img"
+                            sx={{ width: 151 }}
+                            image="user.png"
+                            alt="Live from space album cover"
+                        />
+                        <div className="mt-1">
+                            <div className="text-xl text-center font-semibold">
+                              {patientDetails.firstname} {patientDetails.lastname}
+                            </div>
+                            <div className="pb-8 pt-4">
+                                <div className="flex pl-6">
+                                    <div className="w-1/2 font-semibold">Age</div>
+                                    <div className="w-1/2">{patientDetails.age}</div>
+                                </div>
+                                <div className="flex pt-4 pl-6">
+                                    <div className="w-1/2 font-semibold">Gender</div>
+                                    <div className="w-1/2">{patientDetails.gender}</div>
+                                </div>
+                                <div className="flex pt-4 pl-6">
+                                    <div className="w-1/2 font-semibold">Email ID</div>
+                                    <div className="w-1/2">{patientDetails.email}</div>
+                                </div>
+                                <div className="flex items-center justify-center pt-4 ">
+                                  <Link to="/patient-profile" className="text-blue-400">View Profile</Link> 
+                                </div>
+                            </div>
 
-        <aside className={styles.profile}>
-          <div className={styles.profilePic}></div> {/* Placeholder for profile picture */}
-          <h3>{patientDetails.firstname} {patientDetails.lastname}</h3>
-          <p>Age: {patientDetails.age}</p>
-          <p>Email ID: {patientDetails.email}</p>
-          <p>Gender: {patientDetails.gender}</p>
-          <Link to="/patient-profile" className={styles.viewProfileLink}>View Profile</Link>
-        </aside>
-      </main>
+                        </div>
+
+                    </Card>
+                </div>
+            </div>
+        </div>
+
+
     </div>
+    </>
   );
 };
 

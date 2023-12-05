@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import styles from './DoctorHomePage.module.css'; 
+ 
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 // Define an interface for the expected shape of doctorDetails
 interface DoctorDetails {
@@ -55,41 +63,83 @@ const DoctorHomePage: React.FC = () => {
   const patients = doctorDetails.patients;
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        BodiGuide Inc
-        {/* Navigation links would go here */}
-      </header>
+    <>
+            <div className="h-screen  bg-stone-100">
+                {/* Header Section */}
+                <div className="h-16 bg-gray-200 text-center flex items-center justify-between">
+                    <div className="pl-9 text-2xl font-semibold">
+                        Bodiguide Inc.
+                    </div>
+                    <div className="flex items-end">
+                        <div className="pr-9">
+                            Home
+                        </div>
+                        <div className="pr-9">
+                            Profile
+                        </div>
+                        <div className="pr-9">
+                            About
+                        </div>
+                        <div className="pr-9">
+                            Logout
+                        </div>
+                    </div>
+                </div>
 
-      <main className={styles.mainContent}>
-        <section className={styles.patientsList}>
-          <h2>Patients List</h2>
-          <table>
-            <tbody>
-              {patients.map(patient => (
-                <tr key={patient.unique_code}>
-                  <td>{`${patient.firstname} ${patient.lastname}`}</td>
-                  <td>View Full Details</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button>View Full List</button>
-        </section>
+                <div className="flex flex-col justify-center items-center mt-10">
+                    <div className="w-2/3 bg-white rounded">
 
-        <aside className={styles.sidebar}>
-          <div className={styles.patientCount}>
-            Total Number of Patients
-            <span className={styles.patientNumber}>{patients.length}</span>
-          </div>
-          <div className={styles.doctorProfile}>
-            <div className={styles.profilePic}></div> {/* Placeholder for profile picture */}
-            {doctorName}
-            <button>View Profile</button>
-          </div>
-        </aside>
-      </main>
-    </div>
+                        <TableContainer component={Paper}>
+                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                <TableHead>
+                                    <TableRow>
+                                        
+                                        <TableCell align="center">First Name</TableCell>
+                                        <TableCell align="center">Last Name</TableCell>
+                                        <TableCell align="center">Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {patients.map((patient) => (
+                                        <TableRow
+                                            key={patient.unique_code}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                {patient.firstname}
+                                            </TableCell>
+                                            <TableCell align="left">{patient.lastname}</TableCell>
+                                            <TableCell align="center">View Full Details</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+
+                        <div className='text-center py-4 cursor-pointer'>View Full List</div>
+                    </div>
+                    
+                    <div className="flex flex-row items-start rounded mt-10">
+                        <div className="flex flex-col bg-white h-32 w-64">
+                              <div className='text-center text-l font-semibold pt-6'>Total Number of Patients</div>
+                              <div className='text-center pt-4'>{patients.length}</div>
+                        </div>
+                        <div className="bg-white ml-48 h-32 w-64">
+                              <div className='pt-6 text-center'>{doctorName}</div>
+                              <div className='text-blue-500 text-center pt-4 cursor-pointer'>View Full Profile</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        
+    
+    </>
   );
 };
 

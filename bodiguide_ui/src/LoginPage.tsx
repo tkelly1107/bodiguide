@@ -2,6 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.module.css';
 
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+
 interface LoginProps {
   onLogin: (username: string, password: string) => void;
   onForgotPassword: () => void;
@@ -28,22 +32,64 @@ const LoginPage: React.FC<LoginProps> = (props) => {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <h2>Welcome!</h2>
-        <p>Please login to continue</p>
-        <div className="input-group">
-          <input type="text" id="usernameInput" placeholder="Username" />
-        </div>
-        <div className="input-group">
-          <input type="password" id="passwordInput" placeholder="Password" />
-        </div>
-        <button onClick={handleLogin}>LOGIN</button>
-        <button onClick={props.onForgotPassword}>Forgot Password?</button>
-        {/* Add navigation to the Create an account button */}
-        <button onClick={handleCreateAccount}>Create an account</button>
-      </div>
-    </div>
+    <>
+    <div className="h-screen bg-violet-400  flex items-center justify-center" > 
+                <div className="w-2/3 h-2/3 bg-gray-100 rounded shadow-xl ">
+                    <div className="flex flex-row ">
+                        <div className="w-1/2 h-full pl-7 pt-6">
+                            <img src="BodiGuide_Icon.png"/>
+                        </div>
+                        <div className="flex flex-col mx-9 my-9 w-1/2">
+                            <div className=" text-xl pt-4  font-semibold">
+                                WELCOME!  
+                            </div>
+                            <div className="pt-6 text-sm">
+                                Please Login to Continue
+                            </div>
+                           <div className="mr-16 py-6">
+                            <TextField
+                                        id="usernameInput"
+                                        label="Username"
+                                        type="text"
+                                        // value = {username}
+                                        size="small"
+                                        fullWidth
+                                    />
+                           </div>
+                            <div className=" mr-16 ">
+                            <TextField
+                                        id="passwordInput"
+                                        label="Password"
+                                        type="password"
+                                        // value = {username}
+                                        size="small"
+                                        fullWidth
+                                    />
+                            </div>
+                            <div className="text-sm text-right mr-16 cursor-pointer" onClick={props.onForgotPassword}>
+                                Forgot Password?
+                            </div>
+                            <div className="text-center pt-4 mr-16">
+                                <Button variant="contained" onClick={handleLogin}>Login</Button>
+                            </div>
+                            <div className="text-center pt-3 mr-16">
+                                (Or)
+                            </div>
+                            <div className="text-center text-blue-500 pt-3 mr-16 cursor-pointer font-semibold" onClick={handleCreateAccount}>
+                                Create an Account
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+               
+                
+                
+                
+            </div>
+
+    
+    </>
   );
 };
 
