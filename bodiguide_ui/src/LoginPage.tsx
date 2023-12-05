@@ -22,6 +22,7 @@ const LoginPage: React.FC<LoginProps> = (props) => {
     const username = usernameInput?.value || '';
     const password = passwordInput?.value || '';
 
+    
     // Call the onLogin prop with the entered credentials
     props.onLogin(username, password);
   };

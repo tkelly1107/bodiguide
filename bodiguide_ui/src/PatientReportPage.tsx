@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import styles from './DoctorViewPatientPage.module.css';
+import styles from './PatientReportPage.module.css';
 
 // Define an interface for the expected shape of the API response
 
@@ -27,13 +27,13 @@ interface PatientReport {
   doctor_unique_code: number;
 }
 
-const DoctorViewPatientPage = () => {
+const PatientReportPage = () => {
   const { patientId } = useParams<{ patientId: string }>();
   const [patientReport, setPatientReport] = useState<PatientReport | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const apiUrl = `https://dcw3srhbqk.execute-api.us-east-1.amazonaws.com/user/2/reports?patientId=${patientId}`;
+  const apiUrl = `https://dcw3srhbqk.execute-api.us-east-1.amazonaws.com/user/${patientId}/reports`
 
   useEffect(() => {
     axios.get(apiUrl)
@@ -76,4 +76,4 @@ const DoctorViewPatientPage = () => {
   );
 };
 
-export default DoctorViewPatientPage;
+export default PatientReportPage;

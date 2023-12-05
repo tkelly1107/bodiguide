@@ -4,6 +4,7 @@ import SignUp from './SignUp';
 import DoctorHomePage from './DoctorHomePage';
 import PatientHomePage from './PatientHomePage';
 import DoctorViewPatientPage from './DoctorViewPatientPage';
+import PatientReportPage from './PatientReportPage';
 import PatientProfilePage from './PatientProfilePage'; // Import the PatientProfilePage component
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/doctor-home" element={<DoctorHomePage />} />
         <Route path="/patient-home" element={<PatientHomePage />} />
+        <Route path="/patient-report/:patientId" element={<PatientReportPage />} />
         <Route path="/doctor/view-patient/:patientId" element={<DoctorViewPatientPage />} />
         <Route path="/patient-profile" element={<PatientProfilePage />} /> {/* Add the route for PatientProfilePage */}
       </Routes>

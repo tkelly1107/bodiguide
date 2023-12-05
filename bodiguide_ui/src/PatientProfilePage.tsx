@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import styles from './PatientProfilePage.module.css';
 import Card from '@mui/material/Card';
 import PatientSideBar from "./PatientSideBar";
 import CardMedia from '@mui/material/CardMedia';
 
 
 // Define an interface for the expected shape of patientDetails
+
+const capitalize = (str: string) => {
+  if (!str) return '';
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
 interface PatientDetails {
   firstname: string;
   lastname: string;
+  email: string;
+  gender: string;
+  dob: string; // Date of birth
   // include other properties as needed
 }
 
@@ -50,67 +56,49 @@ const PatientProfilePage: React.FC = () => {
 
   // Render patient details
   return (
-
     <>
-            <div className="h-screen  bg-blue-200">
-                <aside className="">
-                    <PatientSideBar/>
-                </aside>
+      <div className="h-screen bg-blue-200">
+        <aside className="">
+          <PatientSideBar />
+        </aside>
 
-                <main className="ml-60">
-                    <div className=" text-center pt-8 font-semibold text-2xl"> Profile </div>
-                    <div className="flex items-center justify-center pt-16">
-                        <div className="w-1/2 h-full bg-white">
-                        
-                        <Card className="flex flex-col items-center justify-center w-full">
-                                    <CardMedia
-                                        className="pt-12"
-                                        component="img"
-                                        sx={{ width: 151 }}
-                                        image="logo512.png"
-                                        alt="Live from space album cover"
-                                    />
-                                    <div className="">
-                                        <div className="text-xl text-center font-semibold">
-                                          {patientDetails.firstname} {patientDetails.lastname}
-                                        </div>
-                                        <div className="pb-12 pt-4">
-                                            {/* <div className="flex pl-10">
-                                                <div className="w-1/2 font-semibold">Mobile Number </div>
-                                                <div className="w-1/2 ">{patientDetails.mobileNumber}</div>
-                                            </div>
-                                            <div className="flex pt-4 pl-10">
-                                                <div className="w-1/2 font-semibold">Gender</div>
-                                                <div className="w-1/2">{patientDetails.gender}</div>
-                                            </div>
-                                            <div className="flex pt-4 pl-10">
-                                                <div className="w-1/2 font-semibold">Date of Birth</div>
-                                                <div className="w-1/2">{patientDetails.dob}</div>
-                                            </div>
-                                            <div className="flex pt-4 pl-10">
-                                                <div className="w-1/2 font-semibold">Email ID</div>
-                                                <div className="w-1/2">{patientDetails.email}</div>
-                                            </div>
-                                            <div className="flex pt-4 pl-10">
-                                                <div className="w-1/2 font-semibold">Address</div>
-                                                <div className="">{patientDetails.address}</div>
-                                            </div> */}
-                                        </div>
-                                        
-                                    </div>
-
-                        </Card>
-
-                        </div>
+        <main className="ml-60">
+          <div className="text-center pt-8 font-semibold text-2xl">Profile</div>
+          <div className="flex items-center justify-center pt-16">
+            <div className="w-1/2 h-full bg-white">
+              <Card className="flex flex-col items-center justify-center w-full">
+              <CardMedia
+                  className="pt-12"
+                  component="img"
+                  sx={{ width: 151 }}
+                  image="user.png"
+                  alt="Profile picture"
+                />
+                <div className="">
+                  <div className="text-xl text-center font-semibold">
+                    {capitalize(patientDetails.firstname)} {capitalize(patientDetails.lastname)}
+                  </div>
+                  <div className="pb-12 pt-4">
+                    <div className="flex pl-10">
+                      <div className="w-1/2 font-semibold">Email ID</div>
+                      <div className="w-1/2">{patientDetails.email}</div>
                     </div>
-                    
-                </main>
-
+                    <div className="flex pt-4 pl-10">
+                      <div className="w-1/2 font-semibold">Gender</div>
+                      <div className="w-1/2">{patientDetails.gender}</div>
+                    </div>
+                    <div className="flex pt-4 pl-10">
+                      <div className="w-1/2 font-semibold">Date of Birth</div>
+                      <div className="w-1/2">{patientDetails.dob}</div>
+                    </div>
+                    {/* Add additional fields as needed */}
+                  </div>
+                </div>
+              </Card>
             </div>
-
-  
-
-    
+          </div>
+        </main>
+      </div>
     </>
   );
 };
