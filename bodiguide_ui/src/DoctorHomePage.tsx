@@ -57,7 +57,7 @@ const DoctorHomePage: React.FC = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [doctorUniqueCode]); // useEffect dependency array
+  }, [doctorApiUrl, doctorUniqueCode]); // useEffect dependency array
 
 
   // Loading and error handling
@@ -143,7 +143,7 @@ const DoctorHomePage: React.FC = () => {
                               <div className='text-center pt-4'>{patients.length}</div>
                         </div>
                         <div className="bg-white ml-48 h-32 w-64">
-                              <div className='pt-6 text-center' >{capitalize(doctorName)}</div>
+                              <div className='pt-6 text-center' ><strong>{capitalize(doctorName)}</strong></div>
                         </div>
 
                     </div>

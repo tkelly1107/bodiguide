@@ -47,7 +47,7 @@ const DoctorViewPatientPage = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [patientId]);
+  }, [apiUrl, patientId]);
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (error) return <div className={styles.error}>Error: {error}</div>;
@@ -55,8 +55,8 @@ const DoctorViewPatientPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.name}>{capitalize(patientReport.patient_firstname)} {capitalize(patientReport.patient_lastname)}</h1>
-      <h2 className={styles.title}>Patient Profile</h2>
+      <h1 className={styles.name}><strong>{capitalize(patientReport.patient_firstname)} {capitalize(patientReport.patient_lastname)}</strong></h1>
+      <h2 className={styles.title} >Patient Profile</h2>
       <div className={styles.patientDetails}>
         {/* Additional patient details can be added here */}
         <h2 className={styles.measurementsTitle}>Measurements</h2>
